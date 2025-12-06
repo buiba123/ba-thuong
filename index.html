@@ -24,9 +24,13 @@
             position: relative; height: 100%; width: 100%;
             background-image: url('./assets/bk.jpg'); 
             background-size: cover; background-position: center; background-repeat: no-repeat;
+            
+            /* SỬA ĐỔI: Dùng Grid hoặc Flex để chia bố cục trên/giữa/dưới */
             display: flex; flex-direction: column; 
-            justify-content: flex-start; align-items: center; text-align: center;
-            padding-top: 10vh; /* Khoảng cách trên */
+            justify-content: space-between; /* Đẩy nội dung ra 2 đầu */
+            align-items: center; text-align: center;
+            padding-top: 60px; /* Khoảng cách từ mép trên */
+            padding-bottom: 80px; /* Khoảng cách từ mép dưới */
         }
 
         .overlay {
@@ -34,55 +38,52 @@
             background: rgba(0, 0, 0, 0.4); z-index: 1;
         }
 
-        /* --- WREATH & CONTENT --- */
-        .wreath-container {
-            position: relative; width: 320px; height: 320px;
-            margin: 0 auto 10px auto; 
-            display: flex; justify-content: center; align-items: center; z-index: 2; flex-shrink: 0;
+        /* --- KHU VỰC TRÊN CÙNG (SAVE DATE & ĐỊA CHỈ) --- */
+        .top-info {
+            position: relative; z-index: 3;
+            animation: fadeIn 2s ease-in-out;
+            margin-bottom: 20px;
         }
-        .wreath-image { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; animation: rotateWreath 60s linear infinite; }
-        .content { position: relative; z-index: 3; padding: 20px; width: 100%; max-width: 600px; animation: fadeIn 2s ease-in-out; }
-        .couple-name { font-family: 'Great Vibes', cursive; font-size: 2.2rem; margin-bottom: 0; line-height: 1.1; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); color: #fff; }
-        .couple-name .and { font-size: 1.2rem; display: block; margin: 5px 0; color: #fceea7; }
-
-        /* --- INFO SECTION --- */
-        .info-section {
-            position: relative; z-index: 2;
-            animation: fadeIn 2s ease-in-out 0.5s backwards;
-            display: flex; flex-direction: column; align-items: center;
-            width: 100%;
-            height: 100%; /* Chiếm hết chiều cao còn lại */
-            justify-content: flex-start; /* Nội dung chính ở trên */
+        .save-date-text {
+            font-size: 0.9rem; letter-spacing: 3px; text-transform: uppercase; 
+            font-weight: 600; text-shadow: 0 2px 4px rgba(0,0,0,0.5); margin-bottom: 5px;
         }
-
         .address {
-            font-size: 0.95rem; font-weight: 400; opacity: 0.95;
+            font-size: 1rem; font-weight: 400; opacity: 0.95;
             text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
         }
 
-        /* --- MINI CALENDAR (Đã thu nhỏ & Đẩy xuống đáy) --- */
-        .mini-calendar-container {
-            /* Đẩy xuống cuối cùng của info-section */
+        /* --- WREATH & CONTENT (GIỮA) --- */
+        .wreath-container {
+            position: relative; width: 320px; height: 320px;
+            /* Flex-grow 0 để không bị co giãn */
+            flex-shrink: 0;
+            display: flex; justify-content: center; align-items: center; z-index: 2;
+        }
+        .wreath-image { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; animation: rotateWreath 60s linear infinite; }
+        .content { position: relative; z-index: 3; padding: 20px; width: 100%; max-width: 600px; animation: fadeIn 2s ease-in-out; }
+        .couple-name { font-family: 'Great Vibes', cursive; font-size: 2.5rem; margin-bottom: 0; line-height: 1.1; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); color: #fff; }
+        .couple-name .and { font-size: 1.5rem; display: block; margin: 5px 0; color: #fceea7; }
+
+        /* --- MINI CALENDAR (DƯỚI CÙNG) --- */
+        .mini-calendar-wrapper {
+            position: relative; z-index: 3;
+            /* Đẩy xuống đáy nhưng vẫn nằm trong hero flex */
             margin-top: auto; 
-            margin-bottom: 80px; /* Cách đáy một chút để tránh bị Toolbar che */
-            
+        }
+        .mini-calendar-container {
             background: rgba(255, 255, 255, 0.9);
-            padding: 10px; /* Giảm padding */
-            border-radius: 8px;
+            padding: 10px; border-radius: 8px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            width: 180px; /* Giảm chiều rộng (Cũ là 240px) */
-            text-align: center;
-            color: #333;
-            border: 1px solid #fceea7;
-            position: relative;
-            transform: rotate(-2deg);
-            transition: transform 0.3s ease;
+            width: 180px; text-align: center; color: #333;
+            border: 1px solid #fceea7; position: relative;
+            transform: rotate(-2deg); transition: transform 0.3s ease;
         }
         .mini-calendar-container:hover { transform: rotate(0deg) scale(1.05); }
         .mini-calendar-container::before { content: ''; position: absolute; top: -8px; left: 50%; transform: translateX(-50%); width: 40px; height: 12px; background: #d4af37; border-radius: 3px; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
         
         .cal-month { text-transform: uppercase; font-weight: 700; color: #d4af37; border-bottom: 1px solid #eee; padding-bottom: 5px; margin-bottom: 5px; letter-spacing: 1px; font-size: 0.8rem; }
-        .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; font-size: 0.7rem; } /* Chữ nhỏ hơn */
+        .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; font-size: 0.7rem; }
         .cal-head { font-weight: 700; color: #888; font-size: 0.6rem; margin-bottom: 2px; }
         .cal-day { padding: 3px 0; border-radius: 50%; font-weight: 500; }
         .cal-day.special { background-color: #d4af37; color: #fff; font-weight: 800; position: relative; box-shadow: 0 2px 5px rgba(212, 175, 55, 0.4); }
@@ -107,13 +108,18 @@
         @keyframes heartBeat { 0% { transform: scale(1); } 50% { transform: scale(1.3); } 100% { transform: scale(1); } }
 
         @media (min-width: 768px) {
-            .hero { padding-top: 10vh; }
-            .wreath-container { width: 650px; height: 550px; margin-bottom: 20px; }
-            .couple-name { font-size: 3.5rem; } .couple-name .and { font-size: 2.5rem; }
+            .wreath-container { width: 650px; height: 550px; }
+            .couple-name { font-size: 4rem; } .couple-name .and { font-size: 2.5rem; }
             .floating-toolbar { right: 40px; bottom: 40px; }
-            /* Trên PC thì lịch to hơn chút */
-            .mini-calendar-container { width: 220px; margin-bottom: 60px; } 
+            .mini-calendar-container { width: 220px; } 
             .cal-grid { font-size: 0.8rem; }
+        }
+        
+        /* Chỉnh sửa cho màn hình rất nhỏ (iPhone SE) */
+        @media (max-height: 600px) {
+             .hero { padding-top: 40px; padding-bottom: 60px; }
+             .wreath-container { width: 260px; height: 260px; }
+             .mini-calendar-container { transform: scale(0.9) rotate(-2deg); }
         }
     </style>
 </head>
@@ -122,20 +128,23 @@
     <header class="hero">
         <div class="overlay"></div>
 
-        <div class="wreath-container">
-            <img src="./assets/flower2.png" alt="Wedding Wreath" class="wreath-image">
-            <div class="content">
-                <h1 class="couple-name">Bùi Bá <span class="and">&</span> Huyền Thương</h1>
-            </div>
-        </div>
-
-        <div class="info-section">
-            <p style="font-size: 0.85rem; letter-spacing: 3px; text-transform: uppercase; font-weight: 600; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">Save The Date</p>
-            
+        <div class="top-info">
+            <p class="save-date-text">Save The Date</p>
             <div class="address">
                 <i class="fa-solid fa-location-dot"></i> Số 102 Nguyễn Trường Tộ<br>Hoàng Mai - Nghệ An
             </div>
+        </div>
 
+        <div class="wreath-container">
+            <img src="./assets/flower2.png" alt="Wedding Wreath" class="wreath-image">
+            <div class="content">
+                <h1 class="couple-name">
+                    Bùi Bá <span class="and">&</span> Huyền Thương
+                </h1>
+            </div>
+        </div>
+
+        <div class="mini-calendar-wrapper">
             <div class="mini-calendar-container">
                 <div class="cal-month">Tháng 1 - 2026</div>
                 <div class="cal-grid">
