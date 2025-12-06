@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Bùi Bá ❤️ Huyền Thương - Swapped Layout</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Great+Vibes&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        /* --- CSS RESET & BASE --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body {
+            height: 100%; width: 100%; overflow: hidden; position: fixed;
+            font-family: 'Montserrat', sans-serif; color: #fff; background-color: #111;
+        }
+
+        /* --- HERO SECTION & BACKGROUND --- */
+        .hero {
+            position: relative; height: 100%; width: 100%;
+            background-image: url('./assets/bk.jpg');
+            background-size: cover; background-position: center; background-repeat: no-repeat;
+        }
+
+        /* Dual gradient overlay */
+        .dual-gradient-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom,
+                rgba(0,0,0,0.85) 5%,
+                rgba(0,0,0,0.05) 40%,
+                rgba(0,0,0,0.05) 60%,
+                rgba(0,0,0,0.85) 90%);
+            z-index: 1;
+        }
+
+        /* --- TOP CONTENT BAR: NAME & DATE/QUOTE --- */
+        .top-content-bar {
+            position: absolute; top: 8%; left: 0; width: 100%; z-index: 10;
+            padding: 0px 20px; text-align: center;
+            animation: fadeInDown 1.5s ease-out;
+            pointer-events: none;
+        }
+        .couple-name-top {
+            font-family: 'Great Vibes', cursive; color: #fff; text-shadow: 0 3px 10px rgba(0,0,0,0.7);
+            display: flex; flex-direction: row; align-items: center; justify-content: center;
+            gap: 15px; font-size: 3.5rem; line-height: 1.1; margin-bottom: 30px;
+            pointer-events: auto;
+        }
+        .couple-name-top::before, .couple-name-top::after {
+            content: ""; display: block; height: 1px; width: 50px; 
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.4), transparent);
+            margin-top: 8px; flex-grow: 1; max-width: 150px; 
+        }
+        .couple-name-top::after { background: linear-gradient(to left, transparent, rgba(255, 255, 255, 0.4), transparent); }
+        .heart-center {
+            font-size: 1.5rem; color: #ff6b81; filter: drop-shadow(0 0 6px rgba(255,107,129,0.8));
+            animation: heartBeat 1.6s infinite ease-in-out;
+        }
+        .name-line { display: inline-block; line-height: 1; }
+        
+        /* DATE & QUOTE STYLING */
+        .date-info-wrapper { padding-bottom: 25px; }
+        .std-tagline {
+            font-size: 0.75rem; letter-spacing: 5px; text-transform: uppercase;
+            font-weight: 600; color: #d6d6d6; margin-bottom: 6px;
+        }
+        .date-info-line {
+            border-top: 1px solid rgba(255,255,255,0.18);
+            border-bottom: 1px solid rgba(255,255,255,0.18);
+            padding: 8px 18px; display: inline-block; margin-bottom: 8px;
+        }
+        .the-date {
+            font-size: 1.1rem; font-weight: 700; letter-spacing: 4px; color: #fceea7;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.7);
+        }
+        .poster-quote {
+            font-size: 0.68rem; font-style: italic; opacity: 0.85; margin-top: 6px;
+            margin-bottom: 25px; 
+        }
+
+        /* --- NÚT GỬI LỜI CHÚC (CTA Button) --- */
+        .cta-button {
+            display: inline-block; padding: 12px 25px; background: #ff6b81; 
+            color: #fff; font-weight: 700; text-transform: uppercase; text-decoration: none;
+            font-size: 0.8rem; letter-spacing: 1px; border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(255, 107, 129, 0.5); transition: all 0.3s ease;
+            pointer-events: auto;
+        }
+        .cta-button:hover {
+            background: #ff8a9c; transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(255, 107, 129, 0.7);
+        }
+
+        /* --- BOTTOM CONTENT BAR: TOOLBAR --- */
+        .bottom-content-bar {
+            position: absolute; bottom: 0; left: 0; width: 100%; z-index: 10;
+            padding: 12px 20px 40px 20px; text-align: center;
+            animation: fadeInUp 1.5s ease-out;
+        }
+        .floating-toolbar {
+            position: relative; width: 100%;
+            display: flex; flex-direction: row; justify-content: center;
+            gap: 20px; opacity: 1; pointer-events: auto;
+        }
+        .action-group { 
+            display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; 
+            text-decoration: none; color: #fff; 
+        }
+        .float-btn {
+            width: 38px; height: 38px; background: rgba(255,255,255,0.1); 
+            backdrop-filter: blur(4px); border-radius: 50%; border: 1px solid rgba(255,255,255,0.1);
+            display: flex; justify-content: center; align-items: center;
+            color: #fff; transition: all 0.2s ease; box-shadow: 0 3px 6px rgba(0,0,0,0.5); 
+        }
+        .float-btn:hover { background: #fceea7; color: #222; transform: scale(1.1); border-color: #fceea7; }
+        .action-text { 
+            font-size: 0.55rem; text-transform: uppercase; font-weight: 500; letter-spacing: 1px;
+            text-shadow: 0 1px 2px #000;
+        }
+
+        /* Music disc và Animations (Giữ nguyên) */
+        .music-disc {
+            width: 100%; height: 100%; border-radius: 50%;
+            background-image: url('https://cdn-icons-png.flaticon.com/512/10708/10708579.png');
+            background-size: cover; animation: spin 4s linear infinite;
+            animation-play-state: paused; opacity: 0.9;
+        }
+        .music-disc.playing { animation-play-state: running; }
+
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-18px); } to { opacity:1; transform: translateY(0); } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(18px); } to { opacity:1; transform: translateY(0); } }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        @keyframes heartBeat {
+            0% { transform: scale(1); opacity: 0.95; } 30% { transform: scale(1.25); opacity: 1; }
+            60% { transform: scale(0.95); } 100% { transform: scale(1); opacity: 0.95; }
+        }
+
+        /* --- MODAL MỪNG CƯỚI (NEW) --- */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            display: none; 
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            padding: 20px;
+            overflow-y: auto; 
+        }
+        .modal-overlay.open {
+            display: flex;
+            opacity: 1;
+        }
+        .modal-content {
+            background: #1e1e1e; 
+            border-radius: 12px;
+            max-width: 450px;
+            width: 100%;
+            padding: 30px 20px;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+        .modal-overlay.open .modal-content {
+            transform: scale(1);
+        }
+        .close-btn {
+            position: absolute; top: 10px; right: 10px;
+            background: none; border: none; font-size: 24px;
+            color: #fff; cursor: pointer; opacity: 0.5;
+            transition: opacity 0.2s;
+        }
+        .close-btn:hover { opacity: 1; }
+
+        /* Modal Text Styling */
+        .modal-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #fceea7;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 15px;
+        }
+        .bank-box {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .bank-box h3 {
+            font-size: 1rem;
+            color: #fff;
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+        .bank-box p {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #ccc;
+        }
+        .bank-number-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .bank-number {
+            font-family: 'Cinzel', serif; /* Font chữ mạnh cho số */
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #fceea7;
+            letter-spacing: 0.5px;
+        }
+        .copy-button {
+            background: #ff6b81;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .copy-button:hover { background: #ff8a9c; }
+        .note-text {
+            font-size: 0.8rem;
+            color: #aaa;
+            margin-top: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 15px;
+        }
+
+        /* Responsive Tweaks */
+        @media (min-width: 768px) {
+            .couple-name-top { font-size: 5rem; gap: 25px; }
+            .heart-center { font-size: 2.2rem; }
+            .couple-name-top::before, .couple-name-top::after { width: 100px; }
+            .floating-toolbar { gap: 30px; }
+        }
+        @media (max-width: 480px) {
+             .couple-name-top { font-size: 2.3rem; gap: 10px; padding: 0 5px; margin-bottom: 20px; }
+             .heart-center { font-size: 1.2rem; }
+             .couple-name-top::before, .couple-name-top::after { width: 30px; }
+             .bottom-content-bar { padding-bottom: 30px; }
+             .cta-button { font-size: 0.75rem; padding: 10px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <header class="hero" role="banner">
+        <div class="dual-gradient-overlay" aria-hidden="true"></div>
+
+        <div class="top-content-bar" aria-hidden="false">
+            <h1 class="couple-name-top" aria-label="Bùi Bá trái tim Huyền Thương">
+                <span class="name-line">Bùi Bá</span>
+                <i class="fa-solid fa-heart heart-center" aria-hidden="true"></i>
+                <span class="name-line">Huyền Thương</span>
+            </h1>
+
+            <div class="date-info-wrapper">
+                <div class="std-tagline">Save The Date</div>
+
+                <div class="date-info-line" aria-label="Ngày cưới">
+                    <div class="the-date">04 . 01 . 2026</div>
+                </div>
+
+                <div class="poster-quote">"Charity suffereth long, and is kind; charity envieth not; charity vaunteth not itself, is not puffed up - Corinthians (13:4-8)"</div>
+                
+                <a href="#send-wish" class="cta-button">
+                    <i class="fa-solid fa-paper-plane" style="margin-right: 5px;"></i> GỬI LỜI CHÚC
+                </a>
+            </div>
+        </div>
+
+        <div class="bottom-content-bar" role="contentinfo">
+            <div class="floating-toolbar" aria-hidden="false">
+                
+                <div class="action-group" onclick="toggleMusic()" role="button" aria-label="Bật tắt nhạc">
+                    <div class="float-btn music-btn" title="Play / Pause">
+                        <div class="music-disc" id="music-disc-visual" aria-hidden="true"></div>
+                        <i class="fa-solid fa-music" style="position:absolute; font-size:16px;"></i>
+                    </div>
+                    <span class="action-text">Bật Nhạc</span>
+                </div>
+
+                <a href="#qua-tang" class="action-group" id="open-qua-tang-modal" aria-label="Mừng cưới">
+                    <div class="float-btn"><i class="fa-solid fa-gift"></i></div>
+                    <span class="action-text">Mừng Cưới</span>
+                </a>
+
+                <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="action-group" aria-label="Đường đi">
+                    <div class="float-btn"><i class="fa-solid fa-map-location-dot"></i></div>
+                    <span class="action-text">Đường Đi</span>
+                </a>
+
+                <a href="program.html" class="action-group" aria-label="Lịch trình">
+                    <div class="float-btn"><i class="fa-regular fa-calendar-days"></i></div>
+                    <span class="action-text">Lịch Trình</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div id="qua-tang-modal" class="modal-overlay" onclick="closeModalIfOutside(event)">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal()">&times;</button>
+            <h2 class="modal-title">GỬI LỜI CHÚC & MỪNG CƯỚI</h2>
+            
+            <p style="font-size: 0.9rem; margin-bottom: 20px; color: #ccc;">
+                Sự hiện diện của Quý khách là món quà lớn nhất! Nếu Quý khách muốn gửi lời chúc phúc hoặc góp vui, vui lòng sử dụng thông tin bên dưới:
+            </p>
+
+            <div class="bank-box">
+                <h3><i class="fa-solid fa-mars" style="color:#2a7eef;"></i> BÙI VĂN BÁ</h3>
+                <p>Ngân hàng: BIDV</p>
+                <div class="bank-number-group">
+                    <span class="bank-number" id="stk-ba">5150147811</span>
+                    <button class="copy-button" onclick="copyText('5150147811', this)">Sao chép</button>
+                </div>
+            </div>
+
+            <div class="bank-box">
+                <h3><i class="fa-solid fa-venus" style="color:#ff6b81;"></i> NGUYỄN THỊ THƯƠNG</h3>
+                <p>Ngân hàng: ACB</p>
+                <div class="bank-number-group">
+                    <span class="bank-number" id="stk-thuong">6356217</span>
+                    <button class="copy-button" onclick="copyText('6356217', this)">Sao chép</button>
+                </div>
+            </div>
+
+            <p class="note-text">
+                * Quý khách có thể ghi nội dung chuyển khoản là [Tên Quý Khách] Mừng Cưới.
+            </p>
+            <p class="note-text">
+                * Nếu thông tin tài khoản không phải là BUI VAN BA / NGUYEN THI THUONG vui lòng không chuyển khoản.
+            </p>
+            
+        </div>
+    </div>
+    <audio id="wedding-audio" loop preload="none">
+        <source src="./assets/wedding-song.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <script>
+        // --- Confetti & Music Functions (Giữ nguyên) ---
+        (function confettiBurst(){
+            var duration = 2500;
+            var end = Date.now() + duration;
+            (function frame(){
+                confetti({ particleCount: 4, angle: 60, spread: 50, origin: { x: 0, y: 0.9 }, colors: ['#fceea7','#ffffff','#ffb7b2'] });
+                confetti({ particleCount: 4, angle: 120, spread: 50, origin: { x: 1, y: 0.9 }, colors: ['#fceea7','#ffffff','#ffb7b2'] });
+                if (Date.now() < end) requestAnimationFrame(frame);
+            }());
+        })();
+
+        var audio = document.getElementById("wedding-audio");
+        var disc = document.getElementById("music-disc-visual");
+        var musicText = document.querySelector(".action-group:first-child .action-text");
+        var isPlaying = false;
+
+        function toggleMusic() {
+            if (!audio) return;
+            if (isPlaying) {
+                audio.pause(); disc.classList.remove("playing"); musicText.innerText = "Bật Nhạc";
+            } else {
+                var playPromise = audio.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(function(){ 
+                        disc.classList.add("playing"); musicText.innerText = "Tắt Nhạc";
+                    }).catch(function(err){
+                        musicText.innerText = "Bật Nhạc"; console.warn('Autoplay blocked:', err);
+                    });
+                }
+            }
+            isPlaying = !isPlaying;
+        }
+        document.body.addEventListener('click', function initOnce(){
+            if (!isPlaying) toggleMusic();
+            document.body.removeEventListener('click', initOnce);
+        }, { once: true });
+        
+        // --- Modal & Copy Functions (NEW) ---
+        const modal = document.getElementById('qua-tang-modal');
+        
+        function openModal() {
+            modal.classList.add('open');
+            document.body.style.overflow = 'hidden'; // Chặn cuộn trang nền
+        }
+
+        function closeModal() {
+            modal.classList.remove('open');
+            document.body.style.overflow = ''; // Cho phép cuộn lại
+        }
+
+        function closeModalIfOutside(event) {
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+
+        // Gắn sự kiện click cho nút Mừng Cưới
+        document.getElementById('open-qua-tang-modal').addEventListener('click', function(e) {
+            e.preventDefault();
+            openModal();
+        });
+
+        // Chức năng sao chép
+        function copyText(text, buttonElement) {
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = buttonElement.innerText;
+                buttonElement.innerText = 'Đã sao chép!';
+                setTimeout(() => {
+                    buttonElement.innerText = originalText;
+                }, 1500);
+            }).catch(err => {
+                console.error('Không thể sao chép: ', err);
+                alert('Lỗi: Vui lòng sao chép thủ công.');
+            });
+        }
+    </script>
+</body>
+</html>
