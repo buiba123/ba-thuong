@@ -1,561 +1,282 @@
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Bùi Bá & Huyền Thương - Wedding</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Bùi Bá ❤️ Huyền Thương - Swapped Layout</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
     <style>
         /* --- CSS RESET & BASE --- */
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body {
+            height: 100%; width: 100%; overflow: hidden; position: fixed;
+            font-family: 'Montserrat', sans-serif; color: #fff; background-color: #111;
         }
-        
-        html,
-        body {
-            height: 100%;
-            width: 100%;
-            overflow: hidden;
-            position: fixed;
-            font-family: 'Montserrat', sans-serif;
-            color: #fff;
-            background-color: #222;
-        }
-        
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-        /* --- HERO SECTION --- */
-        
+
+        /* --- HERO SECTION & BACKGROUND --- */
         .hero {
-            position: relative;
-            height: 100%;
-            width: 100%;
+            position: relative; height: 100%; width: 100%;
             background-image: url('./assets/bk.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            display: flex;
-            flex-direction: column;
-            /* THAY ĐỔI QUAN TRỌNG: Xếp mọi thứ từ trên xuống */
-            
-            justify-content: flex-start;
-            align-items: center;
-            text-align: center;
-            padding-top: 8vh;
-            padding-bottom: 4vh;
+            background-size: cover; background-position: center; background-repeat: no-repeat;
         }
-        
-        .overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.3);
+
+        /* Dual gradient overlay */
+        .dual-gradient-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom,
+                rgba(0,0,0,0.85) 5%,
+                rgba(0,0,0,0.05) 80%,
+                rgba(0,0,0,0.05) 60%,
+                rgba(0,0,0,0.85) 90%);
             z-index: 1;
         }
-        /* --- KHU VỰC TRÊN CÙNG (TOP INFO) --- */
-        
-        .top-info {
-            position: relative;
-            z-index: 3;
-            animation: fadeIn 2s ease-in-out;
-            width: 100%;
-            padding: 0 20px;
-            /* Loại bỏ margin-bottom lớn để vòng hoa nằm gần hơn */
-            
-            margin-bottom: 10px;
+
+        /* --- TOP CONTENT BAR: NAME & DATE/QUOTE (NEW POSITION) --- */
+        .top-content-bar {
+            position: absolute; 
+            top: 8%; /* Vẫn giữ ở trên cao */
+            left: 0; width: 100%; z-index: 10;
+            padding: 80px 20px; text-align: center;
+            animation: fadeInDown 1.5s ease-out;
+            pointer-events: none;
         }
-        
-        .save-date-text {
-            font-size: 0.85rem;
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            font-weight: 400;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-            display: inline-block;
-            padding-bottom: 10px;
-            margin-bottom: 15px;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-        }
-        
-        .bible-quote {
-            font-size: 0.9rem;
-            font-weight: 300;
-            font-style: italic;
-            opacity: 0.9;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
-            max-width: 80%;
-            margin: 0 auto;
-            line-height: 1.4;
-        }
-        /* --- WREATH & CONTENT (VÒNG HOA & TÊN - ĐÃ THU NHỎ) --- */
-        
-        .wreath-container {
-            position: relative;
-            /* Kích thước nhỏ hơn (Mobile) */
-            
-            width: 260px;
-            height: 260px;
-            /* Tạo khoảng cách nhỏ với dòng trích dẫn bên trên */
-            
-            margin-top: 20px;
-            margin-left: auto;
-            margin-right: auto;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 2;
-            flex-shrink: 0;
-        }
-        
-        .wreath-image {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            animation: rotateWreath 60s linear infinite;
-        }
-        
-        .content {
-            position: relative;
-            z-index: 3;
-            padding: 0;
-            width: 100%;
-            max-width: 600px;
-            animation: fadeIn 2s ease-in-out;
-        }
-        
-        .couple-name {
+
+        /* TÊN CẶP ĐÔI (Giữ nguyên Option 3 styling) */
+        .couple-name-top {
             font-family: 'Great Vibes', cursive;
-            /* Cỡ chữ nhỏ hơn */
-            
-            font-size: 2rem;
-            margin-bottom: 0;
-            line-height: 1;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
             color: #fff;
+            text-shadow: 0 3px 10px rgba(0,0,0,0.7);
+            display: flex;
+            flex-direction: row; 
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 30px; /* Thêm khoảng cách lớn giữa tên và ngày tháng */
+            pointer-events: auto;
         }
-        
-        .couple-name .and {
-            /* Cỡ chữ & nhỏ hơn */
-            
-            font-size: 1.2rem;
+        .couple-name-top::before, .couple-name-top::after {
+            content: "";
             display: block;
-            margin: 5px 0;
-            color: #fceea7;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 300;
-            letter-spacing: 2px;
+            height: 1px;
+            width: 50px; 
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.4), transparent);
+            margin-top: 8px;
+            flex-grow: 1; 
+            max-width: 150px; 
         }
-        /* --- MINI CALENDAR (DƯỚI CÙNG) --- */
-        
-        .mini-calendar-wrapper {
-            position: relative;
-            z-index: 3;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            /* QUAN TRỌNG: Đẩy khối này xuống đáy màn hình */
-            
-            margin-top: auto;
-            margin-bottom: 60px;
-            /* Khoảng cách an toàn với toolbar */
+        .couple-name-top::after { background: linear-gradient(to left, transparent, rgba(255, 255, 255, 0.4), transparent); }
+        .heart-center {
+            font-size: 1.5rem; color: #ff6b81; filter: drop-shadow(0 0 6px rgba(255,107,129,0.8));
+            animation: heartBeat 1.6s infinite ease-in-out;
         }
+        .name-line { display: inline-block; line-height: 1; }
         
-        .mini-calendar-container {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 12px;
-            border-radius: 10px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            width: 180px;
+        /* DATE & QUOTE STYLING (Vị trí mới: Dưới tên) */
+        .date-info-wrapper {
+            /* Vị trí này không cần CSS mới, chỉ cần các lớp cũ */
+        }
+        .std-tagline {
+            font-size: 0.75rem; letter-spacing: 5px; text-transform: uppercase;
+            font-weight: 600; color: #d6d6d6; margin-bottom: 6px;
+        }
+        .date-info-line {
+            border-top: 1px solid rgba(255,255,255,0.18);
+            border-bottom: 1px solid rgba(255,255,255,0.18);
+            padding: 8px 18px; display: inline-block; margin-bottom: 8px;
+           
+        }
+        .the-date {
+            font-size: 1.1rem; font-weight: 700; letter-spacing: 4px; color: #fceea7;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.7);
+        }
+        .poster-quote {
+            font-size: 0.68rem; font-style: italic; opacity: 0.85; margin-top: 6px;
+        }
+
+        /* --- BOTTOM CONTENT BAR: TOOLBAR (NEW POSITION) --- */
+        .bottom-content-bar {
+            position: absolute; bottom: 0; left: 0; width: 100%; z-index: 10;
+            padding: 12px 20px 40px 20px; /* Padding chỉ dành cho toolbar */
             text-align: center;
-            color: #333;
-            border: 1px solid #fceea7;
-            position: relative;
-            transform: rotate(-3deg);
-            transition: transform 0.3s ease;
+            animation: fadeInUp 1.5s ease-out;
         }
-        
-        .mini-calendar-container:hover {
-            transform: rotate(0deg) scale(1.05);
-        }
-        
-        .mini-calendar-container::before {
-            content: '';
-            position: absolute;
-            top: -8px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 50px;
-            height: 12px;
-            background: rgba(212, 175, 55, 0.8);
-            border-radius: 3px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
-        
-        .cal-month {
-            text-transform: uppercase;
-            font-weight: 700;
-            color: #d4af37;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 5px;
-            margin-bottom: 5px;
-            letter-spacing: 1px;
-            font-size: 0.8rem;
-        }
-        
-        .cal-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 3px;
-            font-size: 0.75rem;
-        }
-        
-        .cal-head {
-            font-weight: 700;
-            color: #999;
-            font-size: 0.65rem;
-            margin-bottom: 2px;
-        }
-        
-        .cal-day {
-            padding: 4px 0;
-            border-radius: 50%;
-            font-weight: 500;
-        }
-        
-        .cal-day.special {
-            background-color: #d4af37;
-            color: #fff;
-            font-weight: 800;
-            position: relative;
-            box-shadow: 0 2px 5px rgba(212, 175, 55, 0.4);
-        }
-        
-        .cal-day.special::after {
-            content: '\f004';
-            font-family: "Font Awesome 6 Free";
-            font-weight: 900;
-            position: absolute;
-            top: -8px;
-            right: -6px;
-            color: #e74c3c;
-            font-size: 0.7rem;
-            animation: heartBeat 1.5s infinite;
-            filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.3));
-        }
-        /* --- FLOATING TOOLBAR --- */
-        
+
+        /* TOOLBAR STYLING (Vị trí mới: Dưới cùng) */
         .floating-toolbar {
-            position: fixed;
-            bottom: 30px;
-            right: 20px;
-            z-index: 1000;
-            display: flex;
-            flex-direction: column-reverse;
-            gap: 20px;
-            align-items: center;
-        }
-        
-        .action-group {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 5px;
-            cursor: pointer;
-            text-decoration: none;
-        }
-        
-        .action-group:hover .float-btn {
-            transform: scale(1.1);
-            background: #fceea7;
-            color: #333;
-            border-color: #fceea7;
-        }
-        
-        .action-group:hover .action-text {
-            color: #fceea7;
-        }
-        
-        .float-btn {
-            width: 50px;
-            height: 50px;
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(8px);
-            border-radius: 50%;
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #fff;
-            transition: all 0.3s ease;
-        }
-        
-        .float-btn i {
-            font-size: 1.2rem;
-        }
-        
-        .action-text {
-            font-size: 0.7rem;
-            color: #fff;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
-            text-align: center;
-            white-space: nowrap;
-        }
-        
-        .music-btn {
-            border: 2px solid #fff;
-            background: rgba(255, 255, 255, 0.3);
-        }
-        
-        .music-disc {
+            position: relative; 
             width: 100%;
-            height: 100%;
+            display: flex;
+            flex-direction: row; 
+            justify-content: center;
+            gap: 20px; 
+            padding: 0; /* Đã có padding ở bottom-content-bar */
+            opacity: 1; /* Luôn hiển thị */
+            pointer-events: auto;
+        }
+
+        .action-group { 
+            display: flex; flex-direction: column; 
+            align-items: center; gap: 4px; cursor: pointer; 
+            text-decoration: none; color: #fff; 
+        }
+
+        .float-btn {
+            width: 38px; height: 38px;
+            background: rgba(255,255,255,0.1); 
+            backdrop-filter: blur(4px);
             border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.1);
+            display: flex; justify-content: center; align-items: center;
+            color: #fff; transition: all 0.2s ease;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.5); /* Thêm bóng nhẹ cho nút ở dưới */
+        }
+        .float-btn:hover { background: #fceea7; color: #222; transform: scale(1.1); border-color: #fceea7; }
+        
+        .action-text { 
+            font-size: 0.55rem; text-transform: uppercase; font-weight: 500; letter-spacing: 1px;
+            text-shadow: 0 1px 2px #000;
+        }
+
+        /* Music disc và Animations (Giữ nguyên) */
+        .music-disc {
+            width: 100%; height: 100%; border-radius: 50%;
             background-image: url('https://cdn-icons-png.flaticon.com/512/10708/10708579.png');
-            background-size: cover;
-            animation: spin 4s linear infinite;
-            animation-play-state: paused;
-            opacity: 0.9;
+            background-size: cover; animation: spin 4s linear infinite;
+            animation-play-state: paused; opacity: 0.9;
         }
-        
-        .music-disc.playing {
-            animation-play-state: running;
-        }
-        
-        .music-icon-center {
-            position: absolute;
-            font-size: 1rem;
-            text-shadow: 0 0 3px #000;
-        }
-        
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        @keyframes rotateWreath {
-            from {
-                transform: rotate(0deg);
-            }
-            to {
-                transform: rotate(360deg);
-            }
-        }
-        
-        @keyframes spin {
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-        
+        .music-disc.playing { animation-play-state: running; }
+
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-18px); } to { opacity:1; transform: translateY(0); } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(18px); } to { opacity:1; transform: translateY(0); } }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
         @keyframes heartBeat {
-            0% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.3);
-            }
-            100% {
-                transform: scale(1);
-            }
+            0% { transform: scale(1); opacity: 0.95; }
+            30% { transform: scale(1.25); opacity: 1; }
+            60% { transform: scale(0.95); }
+            100% { transform: scale(1); opacity: 0.95; }
         }
-        /* Responsive cho PC */
-        
-        @media (min-width: 768px) {
-            .hero {
-                padding-top: 10vh;
-                padding-bottom: 5vh;
-            }
-            /* Điều chỉnh kích thước PC cho cân đối */
-            
-            .wreath-container {
-                width: 450px;
-                height: 450px;
-                margin-top: 30px;
-            }
-            .couple-name {
-                font-size: 3.5rem;
-            }
-            .couple-name .and {
-                font-size: 1.8rem;
-            }
-            .floating-toolbar {
-                right: 40px;
-                bottom: 40px;
-            }
-            .mini-calendar-container {
-                width: 220px;
-            }
-            .cal-grid {
-                font-size: 0.85rem;
-            }
+
+        @media (min-width: 900px) {
+            .couple-name-top { font-size: 5rem; gap: 25px; }
+            .heart-center { font-size: 2.2rem; }
+            .couple-name-top::before, .couple-name-top::after { width: 100px; }
+            .floating-toolbar { gap: 30px; }
         }
-        /* Chỉnh sửa cho màn hình rất nhỏ (iPhone SE) */
-        
-        @media (max-height: 660px) {
-            .hero {
-                padding-top: 30px;
-            }
-            .wreath-container {
-                width: 220px;
-                height: 220px;
-                margin-top: 15px;
-            }
-            .couple-name {
-                font-size: 1.8rem;
-            }
-            .mini-calendar-container {
-                transform: scale(0.9) rotate(-2deg);
-                margin-bottom: 40px;
-            }
+        @media (max-width: 480px) {
+             .couple-name-top { font-size: 2.3rem; gap: 10px; padding: 0 5px; margin-bottom: 20px; }
+             .heart-center { font-size: 1.2rem; }
+             .couple-name-top::before, .couple-name-top::after { width: 30px; }
+             .bottom-content-bar { padding-bottom: 30px; }
         }
     </style>
 </head>
-
 <body>
-    <header class="hero">
-        <div class="overlay"></div>
-        <div class="top-info">
-            <div class="save-date-text">Save The Date</div>
-            <div class="bible-quote"> "Sự gì Thiên Chúa liên kết, loài người không được phân ly" </div>
-        </div>
-        <div class="wreath-container"> <img src="./assets/flower2.png" alt="Wedding Wreath" class="wreath-image">
-            <div class="content">
-                <h1 class="couple-name"> Bùi Bá <span class="and">&</span> Huyền Thương </h1> </div>
-        </div>
-        <div class="mini-calendar-wrapper">
-            <div class="mini-calendar-container">
-                <div class="cal-month">Tháng 1 - 2026</div>
-                <div class="cal-grid">
-                    <div class="cal-head">CN</div>
-                    <div class="cal-head">T2</div>
-                    <div class="cal-head">T3</div>
-                    <div class="cal-head">T4</div>
-                    <div class="cal-head">T5</div>
-                    <div class="cal-head">T6</div>
-                    <div class="cal-head">T7</div>
-                    <div class="cal-day"></div>
-                    <div class="cal-day"></div>
-                    <div class="cal-day"></div>
-                    <div class="cal-day"></div>
-                    <div class="cal-day">1</div>
-                    <div class="cal-day">2</div>
-                    <div class="cal-day">3</div>
-                    <div class="cal-day special">4</div>
-                    <div class="cal-day">5</div>
-                    <div class="cal-day">6</div>
-                    <div class="cal-day">7</div>
-                    <div class="cal-day">8</div>
-                    <div class="cal-day">9</div>
-                    <div class="cal-day">10</div>
+    <header class="hero" role="banner">
+        <div class="dual-gradient-overlay" aria-hidden="true"></div>
+
+        <div class="top-content-bar" aria-hidden="false">
+            <h1 class="couple-name-top" aria-label="Bùi Bá trái tim Huyền Thương">
+                <span class="name-line">Bùi Bá</span>
+                <i class="fa-solid fa-heart heart-center" aria-hidden="true"></i>
+                <span class="name-line">Huyền Thương</span>
+            </h1>
+
+            <div class="date-info-wrapper">
+                <div class="std-tagline">Save The Date</div>
+
+                <div class="date-info-line" aria-label="Ngày cưới">
+                    <div class="the-date">04 . 01 . 2026</div>
                 </div>
+
+                <div class="poster-quote">"Charity suffereth long, and is kind; charity envieth not; charity vaunteth not itself, is not puffed up - Corinthians (13:4-8)"</div>
+            </div>
+        </div>
+
+        <div class="bottom-content-bar" role="contentinfo">
+            <div class="floating-toolbar" aria-hidden="false">
+                
+                <div class="action-group" onclick="toggleMusic()" role="button" aria-label="Bật tắt nhạc">
+                    <div class="float-btn music-btn" title="Play / Pause">
+                        <div class="music-disc" id="music-disc-visual" aria-hidden="true"></div>
+                        <i class="fa-solid fa-music" style="position:absolute; font-size:16px;"></i>
+                    </div>
+                    <span class="action-text">Bật Nhạc</span>
+                </div>
+
+                <a href="#qua-tang" class="action-group" aria-label="Mừng cưới">
+                    <div class="float-btn"><i class="fa-solid fa-gift"></i></div>
+                    <span class="action-text">Mừng Cưới</span>
+                </a>
+
+                <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="action-group" aria-label="Đường đi">
+                    <div class="float-btn"><i class="fa-solid fa-map-location-dot"></i></div>
+                    <span class="action-text">Đường Đi</span>
+                </a>
+
+                <a href="program.html" class="action-group" aria-label="Lịch trình">
+                    <div class="float-btn"><i class="fa-regular fa-calendar-days"></i></div>
+                    <span class="action-text">Lịch Trình</span>
+                </a>
             </div>
         </div>
     </header>
-    <div class="floating-toolbar">
-        <div class="action-group" onclick="toggleMusic()">
-            <div class="float-btn music-btn">
-                <div class="music-disc" id="music-disc-visual"></div><i class="fa-solid fa-music music-icon-center"></i>
-            </div> <span class="action-text">Bật Nhạc</span> </div>
-        <a href="#qua-tang" class="action-group">
-            <div class="float-btn"><i class="fa-solid fa-gift"></i>
-            </div><span class="action-text">Quà Tặng</span>
-        </a>
-        <a href="https://maps.google.com" target="_blank" class="action-group">
-            <div class="float-btn"><i class="fa-solid fa-map-location-dot"></i>
-            </div><span class="action-text">Đường Đi</span>
-        </a>
-        <a href="program.html" class="action-group">
-            <div class="float-btn"><i class="fa-regular fa-calendar-days"></i>
-            </div><span class="action-text">Lịch Trình</span>
-        </a>
-    </div>
-    <audio id="wedding-audio" loop>
+
+    <audio id="wedding-audio" loop preload="none">
         <source src="./assets/wedding-song.mp3" type="audio/mpeg">
     </audio>
+
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
     <script>
-        var duration = 6 * 1000;
-        var end = Date.now() + duration;
-        (function frame() {
-            confetti({
-                particleCount: 5,
-                angle: 60,
-                spread: 55,
-                origin: {
-                    x: 0
-                },
-                colors: ['#fceea7', '#ffffff', '#ffb7b2']
-            });
-            confetti({
-                particleCount: 5,
-                angle: 120,
-                spread: 55,
-                origin: {
-                    x: 1
-                },
-                colors: ['#fceea7', '#ffffff', '#ffb7b2']
-            });
-            if (Date.now() < end) requestAnimationFrame(frame);
-        }());
-        setTimeout(() => {
-            confetti({
-                particleCount: 100,
-                spread: 70,
-                origin: {
-                    y: 0.6
-                },
-                colors: ['#ffd700', '#ffffff']
-            });
-        }, 500);
+        /* Confetti burst on load (short) */
+        (function confettiBurst(){
+            var duration = 2500;
+            var end = Date.now() + duration;
+            (function frame(){
+                confetti({ particleCount: 4, angle: 60, spread: 50, origin: { x: 0, y: 0.9 }, colors: ['#fceea7','#ffffff','#ffb7b2'] });
+                confetti({ particleCount: 4, angle: 120, spread: 50, origin: { x: 1, y: 0.9 }, colors: ['#fceea7','#ffffff','#ffb7b2'] });
+                if (Date.now() < end) requestAnimationFrame(frame);
+            }());
+        })();
+
+        /* Music toggle + disc animation */
         var audio = document.getElementById("wedding-audio");
         var disc = document.getElementById("music-disc-visual");
         var musicText = document.querySelector(".action-group:first-child .action-text");
         var isPlaying = false;
 
         function toggleMusic() {
+            if (!audio) return;
             if (isPlaying) {
                 audio.pause();
                 disc.classList.remove("playing");
                 musicText.innerText = "Bật Nhạc";
             } else {
-                audio.play();
-                disc.classList.add("playing");
-                musicText.innerText = "Tắt Nhạc";
+                var playPromise = audio.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(function(){ 
+                        disc.classList.add("playing");
+                        musicText.innerText = "Tắt Nhạc";
+                    }).catch(function(err){
+                        musicText.innerText = "Bật Nhạc";
+                        console.warn('Autoplay blocked:', err);
+                    });
+                }
             }
             isPlaying = !isPlaying;
         }
-        document.body.addEventListener('click', function() {
-            if (!isPlaying) {
-                toggleMusic();
-            }
-        }, {
-            once: true
-        });
+
+        document.body.addEventListener('click', function initOnce(){
+            if (!isPlaying) toggleMusic();
+            document.body.removeEventListener('click', initOnce);
+        }, { once: true });
     </script>
 </body>
-
 </html>
