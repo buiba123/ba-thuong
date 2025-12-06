@@ -2,40 +2,31 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Bùi Bá & Huyền Thương - Wedding</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* --- CSS BASE --- */
+        /* --- CSS RESET & BASE --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Montserrat', sans-serif; color: #fff; overflow-x: hidden; }
+        html, body {
+            height: 100%; width: 100%; overflow: hidden; position: fixed;
+            font-family: 'Montserrat', sans-serif; color: #fff; background-color: #222;
+        }
         a { text-decoration: none; color: inherit; }
 
-        /* --- SỬA ĐỔI HERO SECTION --- */
+        /* --- HERO SECTION --- */
         .hero {
-            position: relative;
-            height: 100vh;
-            width: 100%;
+            position: relative; height: 100%; width: 100%;
             background-image: url('./assets/bk.jpg'); 
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            
-            display: flex;
-            flex-direction: column;
-            
-            /* THAY ĐỔI 1: Căn nội dung lên trên cùng (thay vì center) */
-            justify-content: flex-start; 
-            align-items: center;
-            text-align: center;
-            
-            /* THAY ĐỔI 2: Thêm khoảng cách từ mép trên xuống */
-            padding-top: 12vh; /* Cách mép trên 12% chiều cao màn hình */
+            background-size: cover; background-position: center; background-repeat: no-repeat;
+            display: flex; flex-direction: column; 
+            justify-content: flex-start; align-items: center; text-align: center;
+            padding-top: 10vh; /* Khoảng cách trên */
         }
 
         .overlay {
@@ -45,228 +36,84 @@
 
         /* --- WREATH & CONTENT --- */
         .wreath-container {
-            position: relative;
-            width: 320px;
-            height: 320px;
-            /* THAY ĐỔI 3: Tăng khoảng cách dưới để tách biệt với phần ngày tháng */
-            margin: 0 auto 40px auto; 
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 2;
+            position: relative; width: 320px; height: 320px;
+            margin: 0 auto 10px auto; 
+            display: flex; justify-content: center; align-items: center; z-index: 2; flex-shrink: 0;
         }
-
-        .wreath-image {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            object-fit: contain;
-            animation: rotateWreath 60s linear infinite;
-        }
-
-        .content {
-            position: relative; z-index: 3;
-            padding: 20px;
-            width: 100%;
-            max-width: 600px;
-            animation: fadeIn 2s ease-in-out;
-        }
-
-        .couple-name {
-            font-family: 'Great Vibes', cursive;
-            font-size: 2rem;
-            margin-bottom: 0;
-            line-height: 1.1;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            color: #fff;
-        }
-        
-        .couple-name .and {
-            font-size: 1.2rem;
-            display: block;
-            margin: 5px 0;
-            color: #fceea7;
-        }
+        .wreath-image { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; animation: rotateWreath 60s linear infinite; }
+        .content { position: relative; z-index: 3; padding: 20px; width: 100%; max-width: 600px; animation: fadeIn 2s ease-in-out; }
+        .couple-name { font-family: 'Great Vibes', cursive; font-size: 2.2rem; margin-bottom: 0; line-height: 1.1; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); color: #fff; }
+        .couple-name .and { font-size: 1.2rem; display: block; margin: 5px 0; color: #fceea7; }
 
         /* --- INFO SECTION --- */
         .info-section {
             position: relative; z-index: 2;
             animation: fadeIn 2s ease-in-out 0.5s backwards;
-            /* Có thể thêm margin-top nếu muốn đẩy phần này xuống thấp hơn nữa */
-            /* margin-top: 20px; */
-        }
-
-        .wedding-date {
-            font-size: 1.2rem;
-            letter-spacing: 3px;
-            margin-bottom: 10px;
-            font-weight: 600;
-            border-top: 1px solid rgba(255,255,255,0.5);
-            border-bottom: 1px solid rgba(255,255,255,0.5);
-            display: inline-block;
-            padding: 10px 20px;
+            display: flex; flex-direction: column; align-items: center;
+            width: 100%;
+            height: 100%; /* Chiếm hết chiều cao còn lại */
+            justify-content: flex-start; /* Nội dung chính ở trên */
         }
 
         .address {
-            font-size: 0.9rem;
-            font-weight: 300;
-            opacity: 0.9;
-            margin-top: 10px;
+            font-size: 0.95rem; font-weight: 400; opacity: 0.95;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
         }
 
-        /* --- FLOATING TOOLBAR --- */
-        .floating-toolbar {
-            position: fixed;
-            bottom: 30px;
-            right: 20px;
-            z-index: 1000;
-            display: flex;
-            flex-direction: column-reverse;
-            gap: 20px;
-            align-items: center;
-        }
-
-        .action-group {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 5px;
-            cursor: pointer;
-            text-decoration: none;
-        }
-        /* --- CSS MỚI: MINI CALENDAR (HỘP LỊCH TRÊN HERO) --- */
+        /* --- MINI CALENDAR (Đã thu nhỏ & Đẩy xuống đáy) --- */
         .mini-calendar-container {
-            margin: 20px auto;
-            background: rgba(255, 255, 255, 0.9); /* Nền trắng mờ */
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            width: 220px; /* Kích thước nhỏ gọn */
+            /* Đẩy xuống cuối cùng của info-section */
+            margin-top: auto; 
+            margin-bottom: 80px; /* Cách đáy một chút để tránh bị Toolbar che */
+            
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px; /* Giảm padding */
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            width: 180px; /* Giảm chiều rộng (Cũ là 240px) */
             text-align: center;
             color: #333;
             border: 1px solid #fceea7;
             position: relative;
-            /* Hiệu ứng tờ lịch treo */
-            transform: rotate(-2deg); 
+            transform: rotate(-2deg);
             transition: transform 0.3s ease;
         }
+        .mini-calendar-container:hover { transform: rotate(0deg) scale(1.05); }
+        .mini-calendar-container::before { content: ''; position: absolute; top: -8px; left: 50%; transform: translateX(-50%); width: 40px; height: 12px; background: #d4af37; border-radius: 3px; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+        
+        .cal-month { text-transform: uppercase; font-weight: 700; color: #d4af37; border-bottom: 1px solid #eee; padding-bottom: 5px; margin-bottom: 5px; letter-spacing: 1px; font-size: 0.8rem; }
+        .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; font-size: 0.7rem; } /* Chữ nhỏ hơn */
+        .cal-head { font-weight: 700; color: #888; font-size: 0.6rem; margin-bottom: 2px; }
+        .cal-day { padding: 3px 0; border-radius: 50%; font-weight: 500; }
+        .cal-day.special { background-color: #d4af37; color: #fff; font-weight: 800; position: relative; box-shadow: 0 2px 5px rgba(212, 175, 55, 0.4); }
+        .cal-day.special::after { content: '\f004'; font-family: "Font Awesome 6 Free"; font-weight: 900; position: absolute; top: -8px; right: -6px; color: #e74c3c; font-size: 0.7rem; animation: heartBeat 1.5s infinite; filter: drop-shadow(0 1px 1px rgba(0,0,0,0.3)); }
 
-        .mini-calendar-container:hover {
-            transform: rotate(0deg) scale(1.05); /* Thẳng lại khi di chuột */
-        }
-
-        /* Ghim kẹp giấy (Trang trí) */
-        .mini-calendar-container::before {
-            content: '';
-            position: absolute;
-            top: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 20px;
-            background: rgba(212, 175, 55, 0.8); /* Màu vàng kẹp */
-            border-radius: 4px;
-        }
-
-        .cal-month {
-            text-transform: uppercase;
-            font-weight: 700;
-            color: #d4af37;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 5px;
-            margin-bottom: 5px;
-            letter-spacing: 2px;
-            font-size: 0.9rem;
-        }
-
-        .cal-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 2px;
-            font-size: 0.8rem;
-        }
-
-        .cal-head {
-            font-weight: bold;
-            color: #999;
-            font-size: 0.7rem;
-            margin-bottom: 2px;
-        }
-
-        .cal-day {
-            padding: 4px 0;
-            border-radius: 50%;
-        }
-
-        /* Ngày đặc biệt (Ngày 04) */
-        .cal-day.special {
-            background-color: #d4af37;
-            color: #fff;
-            font-weight: bold;
-            position: relative;
-            box-shadow: 0 2px 5px rgba(212, 175, 55, 0.4);
-        }
-
-        /* Trái tim bay trên ngày số 4 */
-        .cal-day.special::after {
-            content: '\f004'; /* Mã icon trái tim của FontAwesome */
-            font-family: "Font Awesome 6 Free";
-            font-weight: 900;
-            position: absolute;
-            top: -12px;
-            right: -8px;
-            color: #e74c3c; /* Màu đỏ trái tim */
-            font-size: 0.8rem;
-            animation: heartBeat 1.5s infinite;
-        }
-
-        @keyframes heartBeat {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.3); }
-            100% { transform: scale(1); }
-        }
-
+        /* --- FLOATING TOOLBAR --- */
+        .floating-toolbar { position: fixed; bottom: 30px; right: 20px; z-index: 1000; display: flex; flex-direction: column-reverse; gap: 20px; align-items: center; }
+        .action-group { display: flex; flex-direction: column; align-items: center; gap: 5px; cursor: pointer; text-decoration: none; }
         .action-group:hover .float-btn { transform: scale(1.1); background: #fceea7; color: #333; border-color: #fceea7; }
         .action-group:hover .action-text { color: #fceea7; }
-
-        .float-btn {
-            width: 50px; height: 50px;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(5px);
-            border-radius: 50%;
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            display: flex; justify-content: center; align-items: center;
-            color: #fff; transition: all 0.3s ease;
-        }
+        .float-btn { width: 50px; height: 50px; background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(5px); border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.6); box-shadow: 0 4px 10px rgba(0,0,0,0.3); display: flex; justify-content: center; align-items: center; color: #fff; transition: all 0.3s ease; }
         .float-btn i { font-size: 1.2rem; }
-
-        .action-text {
-            font-size: 0.7rem; color: #fff; font-weight: 600; text-transform: uppercase;
-            letter-spacing: 1px; text-shadow: 0 2px 4px rgba(0,0,0,0.8);
-            text-align: center; white-space: nowrap;
-        }
-
+        .action-text { font-size: 0.7rem; color: #fff; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; text-shadow: 0 2px 4px rgba(0,0,0,0.8); text-align: center; white-space: nowrap; }
         .music-btn { border: 2px solid #fff; background: rgba(255, 255, 255, 0.2); }
-        
-        .music-disc {
-            width: 100%; height: 100%; border-radius: 50%;
-            background-image: url('https://cdn-icons-png.flaticon.com/512/10708/10708579.png'); 
-            background-size: cover;
-            animation: spin 4s linear infinite; animation-play-state: paused; opacity: 0.9;
-        }
+        .music-disc { width: 100%; height: 100%; border-radius: 50%; background-image: url('https://cdn-icons-png.flaticon.com/512/10708/10708579.png'); background-size: cover; animation: spin 4s linear infinite; animation-play-state: paused; opacity: 0.9; }
         .music-disc.playing { animation-play-state: running; }
         .music-icon-center { position: absolute; font-size: 1rem; text-shadow: 0 0 3px #000; }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes rotateWreath { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         @keyframes spin { 100% { transform: rotate(360deg); } }
+        @keyframes heartBeat { 0% { transform: scale(1); } 50% { transform: scale(1.3); } 100% { transform: scale(1); } }
 
         @media (min-width: 768px) {
-            .hero { padding-top: 10vh; } /* Điều chỉnh cho PC */
-            .wreath-container { width: 650px; height: 550px; margin-bottom: 50px; }
-            .couple-name { font-size: 3.5rem; }
-            .couple-name .and { font-size: 2.5rem; }
-            .wedding-date { font-size: 1.5rem; }
+            .hero { padding-top: 10vh; }
+            .wreath-container { width: 650px; height: 550px; margin-bottom: 20px; }
+            .couple-name { font-size: 3.5rem; } .couple-name .and { font-size: 2.5rem; }
             .floating-toolbar { right: 40px; bottom: 40px; }
+            /* Trên PC thì lịch to hơn chút */
+            .mini-calendar-container { width: 220px; margin-bottom: 60px; } 
+            .cal-grid { font-size: 0.8rem; }
         }
     </style>
 </head>
@@ -278,63 +125,41 @@
         <div class="wreath-container">
             <img src="./assets/flower2.png" alt="Wedding Wreath" class="wreath-image">
             <div class="content">
-                <h1 class="couple-name">
-                    Bùi Bá <span class="and">&</span> Huyền Thương
-                </h1>
+                <h1 class="couple-name">Bùi Bá <span class="and">&</span> Huyền Thương</h1>
             </div>
         </div>
 
         <div class="info-section">
-            <p style="font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px;">Save The Date</p>
+            <p style="font-size: 0.85rem; letter-spacing: 3px; text-transform: uppercase; font-weight: 600; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">Save The Date</p>
             
+            <div class="address">
+                <i class="fa-solid fa-location-dot"></i> Số 102 Nguyễn Trường Tộ<br>Hoàng Mai - Nghệ An
+            </div>
+
             <div class="mini-calendar-container">
                 <div class="cal-month">Tháng 1 - 2026</div>
-                
                 <div class="cal-grid">
                     <div class="cal-head">CN</div><div class="cal-head">T2</div><div class="cal-head">T3</div><div class="cal-head">T4</div><div class="cal-head">T5</div><div class="cal-head">T6</div><div class="cal-head">T7</div>
-                    
                     <div class="cal-day"></div><div class="cal-day"></div><div class="cal-day"></div><div class="cal-day"></div>
-                    
-                    <div class="cal-day">1</div>
-                    <div class="cal-day">2</div>
-                    <div class="cal-day">3</div>
-                    
+                    <div class="cal-day">1</div><div class="cal-day">2</div><div class="cal-day">3</div>
                     <div class="cal-day special">4</div>
-                    
                     <div class="cal-day">5</div><div class="cal-day">6</div><div class="cal-day">7</div><div class="cal-day">8</div><div class="cal-day">9</div><div class="cal-day">10</div>
-                    </div>
-            </div>
-            <div class="address">
-                <i class="fa-solid fa-location-dot"></i> Số 102 Nguyễn Trường Tộ<br>phường Hoàng Mai - Nghệ An
+                </div>
             </div>
         </div>
     </header>
 
     <div class="floating-toolbar">
         <div class="action-group" onclick="toggleMusic()">
-            <div class="float-btn music-btn">
-                <div class="music-disc" id="music-disc-visual"></div>
-                <i class="fa-solid fa-music music-icon-center"></i>
-            </div>
+            <div class="float-btn music-btn"><div class="music-disc" id="music-disc-visual"></div><i class="fa-solid fa-music music-icon-center"></i></div>
             <span class="action-text">Bật Nhạc</span>
         </div>
-        <a href="#qua-tang" class="action-group">
-            <div class="float-btn"><i class="fa-solid fa-gift"></i></div>
-            <span class="action-text">Quà Tặng</span>
-        </a>
-        <a href="https://maps.google.com" target="_blank" class="action-group">
-            <div class="float-btn"><i class="fa-solid fa-map-location-dot"></i></div>
-            <span class="action-text">Đường Đi</span>
-        </a>
-        <a href="program.html" class="action-group">
-            <div class="float-btn"><i class="fa-regular fa-calendar-days"></i></div>
-            <span class="action-text">Lịch Trình</span>
-        </a>
+        <a href="#qua-tang" class="action-group"><div class="float-btn"><i class="fa-solid fa-gift"></i></div><span class="action-text">Quà Tặng</span></a>
+        <a href="https://maps.google.com" target="_blank" class="action-group"><div class="float-btn"><i class="fa-solid fa-map-location-dot"></i></div><span class="action-text">Đường Đi</span></a>
+        <a href="program.html" class="action-group"><div class="float-btn"><i class="fa-regular fa-calendar-days"></i></div><span class="action-text">Lịch Trình</span></a>
     </div>
 
-    <audio id="wedding-audio" loop>
-        <source src="./assets/wedding-song.mp3" type="audio/mpeg">
-    </audio>
+    <audio id="wedding-audio" loop><source src="./assets/wedding-song.mp3" type="audio/mpeg"></audio>
 
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script>
@@ -350,23 +175,12 @@
         var disc = document.getElementById("music-disc-visual");
         var musicText = document.querySelector(".action-group:first-child .action-text");
         var isPlaying = false;
-
         function toggleMusic() {
-            if (isPlaying) {
-                audio.pause();
-                disc.classList.remove("playing");
-                musicText.innerText = "Bật Nhạc";
-            } else {
-                audio.play();
-                disc.classList.add("playing");
-                musicText.innerText = "Tắt Nhạc";
-            }
+            if (isPlaying) { audio.pause(); disc.classList.remove("playing"); musicText.innerText = "Bật Nhạc"; } 
+            else { audio.play(); disc.classList.add("playing"); musicText.innerText = "Tắt Nhạc"; }
             isPlaying = !isPlaying;
         }
-
-        document.body.addEventListener('click', function() {
-            if (!isPlaying) { toggleMusic(); }
-        }, { once: true });
+        document.body.addEventListener('click', function() { if (!isPlaying) { toggleMusic(); } }, { once: true });
     </script>
 
 </body>
