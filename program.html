@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chương Trình & Sự Kiện</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- GLOBAL STYLES (THEME SÁNG) --- */
+        :root {
+            --primary: #d4af37;       /* Vàng kim loại */
+            --secondary: #fceea7;     /* Vàng kem nhạt */
+            --bg-light: #ffffff;      /* Nền trắng */
+            --bg-offwhite: #f9f9f9;   /* Nền xám rất nhạt */
+            --text-dark: #333333;     /* Chữ đen xám */
+            --text-gray: #666666;     /* Chữ xám */
+            --shadow: 0 10px 30px rgba(0,0,0,0.08); /* Bóng đổ nhẹ */
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Montserrat', sans-serif; 
+            background-color: var(--bg-light); 
+            color: var(--text-dark); 
+            overflow-x: hidden; 
+        }
+        
+        .font-art { font-family: 'Great Vibes', cursive; }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 40px;
+            font-family: 'Great Vibes', cursive;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        /* --- 1. HERO --- */
+        .hero-program {
+            position: relative;
+            height: 60vh;
+            width: 100%;
+            background-image: url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1920&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .hero-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255, 255, 255, 0.2); /* Lớp phủ sáng mờ */
+            backdrop-filter: blur(2px);
+        }
+        .hero-text {
+            position: relative; z-index: 2; text-align: center;
+            color: #fff; /* Chữ trên ảnh nền vẫn để trắng cho nổi */
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+            animation: fadeInDown 1.5s ease;
+        }
+        .hero-text h1 { font-size: 4.5rem; margin-bottom: 10px; }
+        .hero-text p { font-size: 1.2rem; text-transform: uppercase; letter-spacing: 3px; font-weight: 600; }
+
+        /* --- 2 & 3. COUPLE SECTION --- */
+        .couple-section {
+            padding: 80px 20px;
+            background-color: var(--bg-light);
+        }
+        .couple-container {
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .person-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            background: #fff;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            border: 1px solid #f0f0f0;
+            transition: transform 0.3s ease;
+        }
+        .person-card:hover { transform: translateY(-5px); }
+        
+        .avatar {
+            width: 200px; height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--primary);
+            padding: 5px; /* Tạo khoảng trắng giữa ảnh và viền */
+            margin-bottom: 25px;
+        }
+        .person-name { font-size: 3rem; color: var(--text-dark); margin-bottom: 5px; }
+        .person-role { font-size: 1rem; text-transform: uppercase; letter-spacing: 3px; color: var(--primary); font-weight: 600; margin-bottom: 15px; }
+        .person-desc { font-size: 1rem; line-height: 1.6; color: var(--text-gray); max-width: 400px; font-style: italic; }
+
+        /* --- 4. CALENDAR SECTION --- */
+        .calendar-section {
+            padding: 80px 20px;
+            background-color: var(--bg-offwhite);
+            text-align: center;
+        }
+        .calendar-card {
+            background: #fff;
+            color: var(--text-dark);
+            max-width: 420px;
+            margin: 0 auto;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--primary);
+        }
+        .month-header { font-size: 1.8rem; font-weight: bold; margin-bottom: 25px; text-transform: uppercase; color: var(--primary); border-bottom: 2px solid #eee; padding-bottom: 15px; }
+        .weekdays { display: grid; grid-template-columns: repeat(7, 1fr); font-weight: bold; margin-bottom: 15px; font-size: 1rem; color: #999; }
+        .days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; }
+        .day { padding: 12px; font-size: 1.1rem; border-radius: 50%; transition: 0.3s; }
+        .day:hover:not(.empty):not(.special) { background-color: #f0f0f0; }
+        .day.empty { visibility: hidden; }
+        
+        .day.special {
+            background: var(--primary);
+            color: #fff;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(212, 175, 55, 0.4);
+            animation: pulse 2s infinite;
+        }
+        .heart-icon { font-size: 2.5rem; color: var(--primary); margin-top: 25px; }
+
+        /* --- 5. TIMELINE SECTION --- */
+        .program-section {
+            padding: 80px 20px;
+            background-color: var(--bg-light);
+        }
+        .timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+        /* Đường kẻ dọc */
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 3px;
+            background-color: #eee;
+            top: 0; bottom: 0;
+            left: 50%;
+            margin-left: -1px;
+        }
+        .event {
+            padding: 10px 50px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+            animation: fadeInUp 1s ease;
+        }
+        .event.left { left: 0; text-align: right; }
+        .event.right { left: 50%; text-align: left; }
+        
+        /* Chấm tròn */
+        .event::after {
+            content: '';
+            position: absolute;
+            width: 24px; height: 24px;
+            right: -13px;
+            background-color: var(--primary);
+            border: 4px solid #fff;
+            top: 20px;
+            border-radius: 50%;
+            z-index: 1;
+            box-shadow: 0 0 0 3px #eee;
+        }
+        .event.right::after { left: -13px; }
+
+        .event-content {
+            padding: 25px;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            border-left: 5px solid var(--primary); /* Điểm nhấn viền màu */
+            transition: transform 0.3s;
+        }
+        .event-content:hover { transform: translateY(-3px); }
+        
+        .time { font-size: 1.4rem; font-weight: 800; color: var(--primary); display: block; margin-bottom: 5px; }
+        .activity { font-size: 1.2rem; font-weight: 700; text-transform: uppercase; color: var(--text-dark); }
+        .desc { font-size: 1rem; color: var(--text-gray); margin-top: 8px; }
+
+        /* --- FOOTER --- */
+        .footer-light {
+            text-align: center; padding: 60px 20px; 
+            background: var(--bg-offwhite);
+            border-top: 1px solid #eee;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 767px) {
+            .timeline::after { left: 31px; }
+            .event { width: 100%; padding-left: 80px; padding-right: 15px; }
+            .event.left, .event.right { left: 0; text-align: left; }
+            .event::after { left: 20px; } 
+            .event.right::after { left: 20px; }
+            
+            .hero-text h1 { font-size: 3.5rem; }
+            .event-content { padding: 15px; }
+        }
+
+        @media (min-width: 768px) {
+            .couple-container { flex-direction: row; justify-content: center; gap: 60px; }
+            .person-card { width: 45%; }
+        }
+
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4); } 70% { box-shadow: 0 0 0 15px rgba(212, 175, 55, 0); } 100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); } }
+    </style>
+</head>
+<body>
+
+    <header class="hero-program">
+        <div class="hero-overlay"></div>
+        <div class="hero-text">
+            <h1 class="font-art">Chương Trình Hôn Lễ</h1>
+            <p>Bùi Bá & Huyền Thương</p>
+        </div>
+    </header>
+
+    <section class="couple-section">
+        <h2 class="section-title">Cặp Đôi Hạnh Phúc</h2>
+        <div class="couple-container">
+            <div class="person-card">
+                <img src="./assets/VIT07634.JPG" alt="Groom" class="avatar">
+                <h3 class="person-name font-art">Bùi Bá</h3>
+                <span class="person-role">Chú Rể</span>
+                <p class="person-desc">"Gặp được Thương là điều may mắn nhất cuộc đời anh."</p>
+            </div>
+
+            <div class="person-card">
+                <img src="./assets/VIT07804.JPG" alt="Bride" class="avatar">
+                <h3 class="person-name font-art">Huyền Thương</h3>
+                <span class="person-role">Cô Dâu</span>
+                <p class="person-desc">"Cảm ơn cuộc đời đã mang anh đến bên em đúng lúc."</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="calendar-section">
+        <h2 class="section-title">Ngày Trọng Đại</h2>
+        <div class="calendar-card">
+            <div class="month-header">Tháng 1 - 2026</div>
+            <div class="weekdays"><div>CN</div><div>T2</div><div>T3</div><div>T4</div><div>T5</div><div>T6</div><div>T7</div></div>
+            <div class="days">
+                <div class="day empty"></div> <div class="day empty"></div> <div class="day empty"></div> <div class="day empty"></div>
+                <div class="day">1</div><div class="day">2</div><div class="day">3</div><div class="day special">4</div>
+                <div class="day">5</div><div class="day">6</div><div class="day">7</div><div class="day">8</div><div class="day">9</div><div class="day">10</div><div class="day">11</div>
+                <div class="day">12</div><div class="day">13</div><div class="day">14</div><div class="day">15</div><div class="day">16</div><div class="day">17</div><div class="day">18</div>
+                <div class="day">...</div>
+            </div>
+            <div class="heart-icon"><i class="fa-solid fa-heart"></i></div>
+            <p style="margin-top: 15px; font-weight: 600; color: var(--text-dark);">Chủ Nhật, Ngày 04 tháng 01 năm 2026</p>
+        </div>
+    </section>
+
+    <section class="program-section">
+        <h2 class="section-title">Lịch Trình Chi Tiết</h2>
+        <div class="timeline">
+            <div class="event left">
+                <div class="event-content">
+                    <span class="time">20:30 - 22:00</span>
+                    <div class="activity">Tiệc Trà</div>
+                    <p class="desc">03/01/2026 - Tiệc ngọt thân mật tối hôm trước.</p>
+                </div>
+            </div>
+            <div class="event right">
+                <div class="event-content">
+                    <span class="time">07:00 - 09:00</span>
+                    <div class="activity">Lễ Rước Dâu</div>
+                    <p class="desc">04/01/2026 - Nhà trai khởi hành đến nhà gái làm lễ.</p>
+                </div>
+            </div>
+            <div class="event left">
+                <div class="event-content">
+                    <span class="time">10:00</span>
+                    <div class="activity">Đón Khách</div>
+                    <p class="desc">Chụp ảnh lưu niệm tại sảnh tiệc.</p>
+                </div>
+            </div>
+            <div class="event right">
+                <div class="event-content">
+                    <span class="time">10:30</span>
+                    <div class="activity">Khai Tiệc</div>
+                    <p class="desc">Nghi thức lễ cưới chính thức và dùng tiệc.</p>
+                </div>
+            </div>
+            <div class="event left">
+                <div class="event-content">
+                    <span class="time">14:00</span>
+                    <div class="activity">Kết Thúc</div>
+                    <p class="desc">Cảm ơn và tiễn khách.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="footer-light">
+        <p style="margin-bottom: 10px; font-style: italic; color: var(--text-gray);">Rất hân hạnh được đón tiếp!</p>
+        <h2 class="font-art" style="font-size: 2.5rem; color: var(--primary);">Bùi Bá & Huyền Thương</h2>
+    </div>
+
+</body>
+</html>
