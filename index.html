@@ -25,67 +25,95 @@
             background-image: url('./assets/bk.jpg'); 
             background-size: cover; background-position: center; background-repeat: no-repeat;
             
-            /* SỬA ĐỔI: Dùng Grid hoặc Flex để chia bố cục trên/giữa/dưới */
             display: flex; flex-direction: column; 
-            justify-content: space-between; /* Đẩy nội dung ra 2 đầu */
+            /* THAY ĐỔI QUAN TRỌNG: Xếp mọi thứ từ trên xuống */
+            justify-content: flex-start; 
             align-items: center; text-align: center;
-            padding-top: 60px; /* Khoảng cách từ mép trên */
-            padding-bottom: 80px; /* Khoảng cách từ mép dưới */
+            
+            padding-top: 8vh; 
+            padding-bottom: 4vh; 
         }
 
         .overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.4); z-index: 1;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 1;
         }
 
-        /* --- KHU VỰC TRÊN CÙNG (SAVE DATE & ĐỊA CHỈ) --- */
+        /* --- KHU VỰC TRÊN CÙNG (TOP INFO) --- */
         .top-info {
             position: relative; z-index: 3;
             animation: fadeIn 2s ease-in-out;
-            margin-bottom: 20px;
+            width: 100%; padding: 0 20px;
+            /* Loại bỏ margin-bottom lớn để vòng hoa nằm gần hơn */
+            margin-bottom: 10px; 
         }
+        
         .save-date-text {
-            font-size: 0.9rem; letter-spacing: 3px; text-transform: uppercase; 
-            font-weight: 600; text-shadow: 0 2px 4px rgba(0,0,0,0.5); margin-bottom: 5px;
+            font-size: 0.85rem; letter-spacing: 5px; text-transform: uppercase; 
+            font-weight: 400; border-bottom: 1px solid rgba(255,255,255,0.5);
+            display: inline-block; padding-bottom: 10px; margin-bottom: 15px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
-        .address {
-            font-size: 1rem; font-weight: 400; opacity: 0.95;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+        
+        .bible-quote {
+            font-size: 0.9rem; font-weight: 300; font-style: italic;
+            opacity: 0.9; text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+            max-width: 80%; margin: 0 auto; line-height: 1.4;
         }
 
-        /* --- WREATH & CONTENT (GIỮA) --- */
+        /* --- WREATH & CONTENT (VÒNG HOA & TÊN - ĐÃ THU NHỎ) --- */
         .wreath-container {
-            position: relative; width: 320px; height: 320px;
-            /* Flex-grow 0 để không bị co giãn */
-            flex-shrink: 0;
+            position: relative; 
+            /* Kích thước nhỏ hơn (Mobile) */
+            width: 260px; height: 260px;
+            /* Tạo khoảng cách nhỏ với dòng trích dẫn bên trên */
+            margin-top: 20px; 
+            margin-left: auto; margin-right: auto;
             display: flex; justify-content: center; align-items: center; z-index: 2;
+            flex-shrink: 0;
         }
         .wreath-image { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; animation: rotateWreath 60s linear infinite; }
-        .content { position: relative; z-index: 3; padding: 20px; width: 100%; max-width: 600px; animation: fadeIn 2s ease-in-out; }
-        .couple-name { font-family: 'Great Vibes', cursive; font-size: 2.5rem; margin-bottom: 0; line-height: 1.1; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); color: #fff; }
-        .couple-name .and { font-size: 1.5rem; display: block; margin: 5px 0; color: #fceea7; }
+        
+        .content { position: relative; z-index: 3; padding: 0; width: 100%; max-width: 600px; animation: fadeIn 2s ease-in-out; }
+        
+        .couple-name { 
+            font-family: 'Great Vibes', cursive; 
+            /* Cỡ chữ nhỏ hơn */
+            font-size: 2rem; 
+            margin-bottom: 0; line-height: 1; 
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.6); color: #fff; 
+        }
+        .couple-name .and { 
+            /* Cỡ chữ & nhỏ hơn */
+            font-size: 1.2rem; 
+            display: block; margin: 5px 0; color: #fceea7; 
+            font-family: 'Montserrat', sans-serif; font-weight: 300; letter-spacing: 2px;
+        }
 
         /* --- MINI CALENDAR (DƯỚI CÙNG) --- */
         .mini-calendar-wrapper {
             position: relative; z-index: 3;
-            /* Đẩy xuống đáy nhưng vẫn nằm trong hero flex */
+            width: 100%; display: flex; justify-content: center;
+            /* QUAN TRỌNG: Đẩy khối này xuống đáy màn hình */
             margin-top: auto; 
+            margin-bottom: 60px; /* Khoảng cách an toàn với toolbar */
         }
         .mini-calendar-container {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 10px; border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            background: rgba(255, 255, 255, 0.95);
+            padding: 12px; border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
             width: 180px; text-align: center; color: #333;
             border: 1px solid #fceea7; position: relative;
-            transform: rotate(-2deg); transition: transform 0.3s ease;
+            transform: rotate(-3deg); transition: transform 0.3s ease;
         }
         .mini-calendar-container:hover { transform: rotate(0deg) scale(1.05); }
-        .mini-calendar-container::before { content: ''; position: absolute; top: -8px; left: 50%; transform: translateX(-50%); width: 40px; height: 12px; background: #d4af37; border-radius: 3px; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+        .mini-calendar-container::before { content: ''; position: absolute; top: -8px; left: 50%; transform: translateX(-50%); width: 50px; height: 12px; background: rgba(212, 175, 55, 0.8); border-radius: 3px; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
         
         .cal-month { text-transform: uppercase; font-weight: 700; color: #d4af37; border-bottom: 1px solid #eee; padding-bottom: 5px; margin-bottom: 5px; letter-spacing: 1px; font-size: 0.8rem; }
-        .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; font-size: 0.7rem; }
-        .cal-head { font-weight: 700; color: #888; font-size: 0.6rem; margin-bottom: 2px; }
-        .cal-day { padding: 3px 0; border-radius: 50%; font-weight: 500; }
+        .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; font-size: 0.75rem; }
+        .cal-head { font-weight: 700; color: #999; font-size: 0.65rem; margin-bottom: 2px; }
+        .cal-day { padding: 4px 0; border-radius: 50%; font-weight: 500; }
         .cal-day.special { background-color: #d4af37; color: #fff; font-weight: 800; position: relative; box-shadow: 0 2px 5px rgba(212, 175, 55, 0.4); }
         .cal-day.special::after { content: '\f004'; font-family: "Font Awesome 6 Free"; font-weight: 900; position: absolute; top: -8px; right: -6px; color: #e74c3c; font-size: 0.7rem; animation: heartBeat 1.5s infinite; filter: drop-shadow(0 1px 1px rgba(0,0,0,0.3)); }
 
@@ -94,10 +122,10 @@
         .action-group { display: flex; flex-direction: column; align-items: center; gap: 5px; cursor: pointer; text-decoration: none; }
         .action-group:hover .float-btn { transform: scale(1.1); background: #fceea7; color: #333; border-color: #fceea7; }
         .action-group:hover .action-text { color: #fceea7; }
-        .float-btn { width: 50px; height: 50px; background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(5px); border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.6); box-shadow: 0 4px 10px rgba(0,0,0,0.3); display: flex; justify-content: center; align-items: center; color: #fff; transition: all 0.3s ease; }
+        .float-btn { width: 50px; height: 50px; background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(8px); border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.5); box-shadow: 0 4px 10px rgba(0,0,0,0.3); display: flex; justify-content: center; align-items: center; color: #fff; transition: all 0.3s ease; }
         .float-btn i { font-size: 1.2rem; }
         .action-text { font-size: 0.7rem; color: #fff; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; text-shadow: 0 2px 4px rgba(0,0,0,0.8); text-align: center; white-space: nowrap; }
-        .music-btn { border: 2px solid #fff; background: rgba(255, 255, 255, 0.2); }
+        .music-btn { border: 2px solid #fff; background: rgba(255, 255, 255, 0.3); }
         .music-disc { width: 100%; height: 100%; border-radius: 50%; background-image: url('https://cdn-icons-png.flaticon.com/512/10708/10708579.png'); background-size: cover; animation: spin 4s linear infinite; animation-play-state: paused; opacity: 0.9; }
         .music-disc.playing { animation-play-state: running; }
         .music-icon-center { position: absolute; font-size: 1rem; text-shadow: 0 0 3px #000; }
@@ -107,19 +135,23 @@
         @keyframes spin { 100% { transform: rotate(360deg); } }
         @keyframes heartBeat { 0% { transform: scale(1); } 50% { transform: scale(1.3); } 100% { transform: scale(1); } }
 
+        /* Responsive cho PC */
         @media (min-width: 768px) {
-            .wreath-container { width: 650px; height: 550px; }
-            .couple-name { font-size: 4rem; } .couple-name .and { font-size: 2.5rem; }
+            .hero { padding-top: 10vh; padding-bottom: 5vh; }
+            /* Điều chỉnh kích thước PC cho cân đối */
+            .wreath-container { width: 450px; height: 450px; margin-top: 30px; }
+            .couple-name { font-size: 3.5rem; } .couple-name .and { font-size: 1.8rem; }
             .floating-toolbar { right: 40px; bottom: 40px; }
             .mini-calendar-container { width: 220px; } 
-            .cal-grid { font-size: 0.8rem; }
+            .cal-grid { font-size: 0.85rem; }
         }
         
         /* Chỉnh sửa cho màn hình rất nhỏ (iPhone SE) */
-        @media (max-height: 600px) {
-             .hero { padding-top: 40px; padding-bottom: 60px; }
-             .wreath-container { width: 260px; height: 260px; }
-             .mini-calendar-container { transform: scale(0.9) rotate(-2deg); }
+        @media (max-height: 660px) {
+             .hero { padding-top: 30px; }
+             .wreath-container { width: 220px; height: 220px; margin-top: 15px;}
+             .couple-name { font-size: 1.8rem; }
+             .mini-calendar-container { transform: scale(0.9) rotate(-2deg); margin-bottom: 40px; }
         }
     </style>
 </head>
@@ -129,8 +161,8 @@
         <div class="overlay"></div>
 
         <div class="top-info">
-            <p class="save-date-text">Save The Date</p>
-            <div class="address">
+            <div class="save-date-text">Save The Date</div>
+            <div class="bible-quote">
                 "Sự gì Thiên Chúa liên kết, loài người không được phân ly"
             </div>
         </div>
